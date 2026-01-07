@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satu Laut Seribu Cerita - Contact</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            background-image: url('lautbg1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(64, 39, 176, 0.3);
+            z-index: -1;
+        }
+
+        /* Donut Animation */
+        .donuts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .donut {
+            position: absolute;
+            font-size: 25px;
+            animation: spin 8s infinite linear;
+            opacity: 0.5;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translate(0, 100vh) rotate(0deg);
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(50px, -100px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2740b0;
+            text-shadow: 0 0 20px rgba(39, 60, 176, 0.8);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            color: #2747b0;
+            text-shadow: 0 0 10px rgba(39, 76, 176, 0.8);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #275eb0;
+            box-shadow: 0 0 10px #2762b0;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 4px 6px rgba(0, 0, 0, 0.5);
+            color: #2752b0;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-info {
+            animation: fadeInLeft 1s ease-out 0.3s both;
+        }
+
+        .info-card {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid rgba(39, 71, 176, 0.4);
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateX(10px);
+            background: rgba(0, 0, 0, 0.7);
+            border-color: #2752b0;
+            box-shadow: 0 5px 20px rgba(39, 98, 176, 0.4);
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #2757b0;
+        }
+
+        .info-icon {
+            font-size: 2rem;
+        }
+
+        /* Contact Form */
+        .contact-form-container {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 2.5rem;
+            border: 2px solid rgba(39, 76, 176, 0.4);
+            animation: fadeInRight 1s ease-out 0.3s both;
+        }
+
+        .contact-form-container h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #274cb0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(39, 53, 176, 0.4);
+            border-radius: 15px;
+            background: rgba(39, 60, 176, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: rgba(39, 76, 176, 0.3);
+            border: 2px solid rgba(39, 64, 176, 0.6);
+            border-radius: 20px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: rgba(39, 60, 176, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* Social Media */
+        .social-section {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 30px;
+            padding: 2.5rem;
+            text-align: center;
+            color: white;
+            border: 2px solid rgba(60, 39, 176, 0.4);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .social-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(39, 48, 176, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Clock */
+        .clock-section {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 25px;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            margin-top: 2rem;
+        }
+
+        .clock-time-contact {
+            font-size: 2.5rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            color: #2747b0;
+        }
+
+        .success-message {
+            display: none;
+            background: rgba(19, 22, 219, 0.9);
+            color: white;
+            padding: 1rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .contact-section {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="donuts" id="donuts"></div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">🐳 Satu Laut Seribu Cerita</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>☎️ Satu Laut Seribu Cerita ☎️</h1>
+        </div>
+
+        <div class="contact-section">
+            <div class="contact-info">
+                <div class="info-card">
+                    <h3><span class="info-icon">🏡</span> Alamat</h3>
+                    <p>jln.lautcinta<br>Mangroveperum<br>kemayoranraya,1780</p>
+                </div>
+
+                <div class="info-card">
+                    <h3><span class="info-icon">📩</span> Email</h3>
+                    <p>
+                        offline.SatuLautSeribuCerita.com<br>
+                        official.SatuLautSeribuCerita.com<br>
+                        store.SatuLautSeribuCerita.com
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3><span class="info-icon">☎️</span> Telepon Darurat</h3>
+                    <p>Emergency: 999<br>Non-Emergency: 0850<br>Fax: 0850-9090-1717</p>
+                </div>
+            </div>
+
+            <div class="contact-form-container">
+                <h2>📩 Kirim Laporan</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kategori Laporan</label>
+                        <input type="text" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Detail Laporan</label>
+                        <textarea required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">⚓ Kirim Laporan</button>
+
+                    <div class="success-message" id="successMessage">
+                        ✅ Laporan diterima kami akan menangani kasus Anda.
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="social-section">
+            <h2>🌐 Satu Laut Seribu Cerita</h2>
+            <p>Media Sosial</p>
+            <div class="social-icons">
+                <div class="social-icon">📘</div>
+                <div class="social-icon">📷</div>
+                <div class="social-icon">📺</div>
+                <div class="social-icon">🎵</div>
+            </div>
+        </div>
+
+        <div class="clock-section">
+            <h3>🕐 Satu Laut Seribu Cerita</h3>
+            <div class="clock-time-contact" id="clockTime">00:00:00</div>
+            <div id="clockDate">Loading...</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Satu Laut Seribu Cerita. Dibuat oleh <strong>Yasmine Salsabila</strong></p>
+        <p class="footer-subtitle">Tugas UAS Pemrograman Web 1 | Universitas Pamulang</p>
+    </footer>
+
+    <script>
+        // Create Donuts
+        function createDonuts() {
+            const container = document.getElementById('donuts');
+            for (let i = 0; i < 15; i++) {
+                const donut = document.createElement('div');
+                donut.className = 'donut';
+                donut.textContent = '🐟';
+                donut.style.left = Math.random() * 100 + '%';
+                donut.style.animationDelay = Math.random() * 8 + 's';
+                donut.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                container.appendChild(donut);
+            }
+        }
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            this.reset();
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+        });
+
+        // Update Clock
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clockTime').textContent = `${hours}:${minutes}:${seconds}`;
+
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+            document.getElementById('clockDate').textContent =
+                `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+        }
+
+        createDonuts();
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+
+</body>
+</html>

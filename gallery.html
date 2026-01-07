@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satu Laut Seribu Cerita - Gallery</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            background-image: url('lautbg1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(33, 150, 243, 0.3);
+            z-index: -1;
+        }
+
+        /* Police Lights Animation */
+        .police-lights {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .light {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        .light.blue {
+            background: radial-gradient(circle, #2196F3 0%, transparent 70%);
+        }
+
+        .light.red {
+            background: radial-gradient(circle, #F44336 0%, transparent 70%);
+            animation-delay: 1s;
+        }
+
+        @keyframes blink {
+            0%, 49%, 100% { opacity: 0; }
+            50%, 99% { opacity: 0.6; }
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2196F3;
+            text-shadow: 0 0 20px rgba(33, 150, 243, 0.8);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            color: #2196F3;
+            text-shadow: 0 0 10px rgba(33, 150, 243, 0.8);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #2196F3;
+            box-shadow: 0 0 10px #2196F3;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 4px 6px rgba(0, 0, 0, 0.5);
+            color: #2196F3;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .gallery-item {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(33, 150, 243, 0.4);
+            transition: all 0.3s;
+            cursor: pointer;
+            animation: scaleIn 0.5s ease-out both;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(33, 150, 243, 0.5);
+            border-color: #2196F3;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2196F3 0%, #00BCD4 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-content {
+            padding: 1.5rem;
+            color: white;
+        }
+
+        .gallery-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #2196F3;
+        }
+
+        .gallery-description {
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(30px);
+            border-radius: 30px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            color: white;
+            border: 2px solid rgba(33, 150, 243, 0.5);
+            position: relative;
+            animation: scaleUp 0.3s ease-out;
+        }
+
+        @keyframes scaleUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(33, 150, 243, 0.3);
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: rgba(33, 150, 243, 0.5);
+            transform: rotate(90deg);
+        }
+
+        .modal-icon {
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #2196F3;
+        }
+
+        .modal-description {
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        /* Clock Widget */
+        .clock-widget {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+            color: white;
+            border: 2px solid rgba(33, 150, 243, 0.4);
+            animation: fadeInUp 1s ease-out 0.7s both;
+        }
+
+        .clock-widget h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2196F3;
+        }
+
+        .clock-display-gallery {
+            font-size: 2.5rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 0.5rem;
+            color: #2196F3;
+        }
+
+        .date-display-gallery {
+            font-size: 1.1rem;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            border-top: 2px solid rgba(33, 150, 243, 0.4);
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        footer .footer-subtitle {
+            margin: 0.5rem 0 0 0;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="police-lights" id="policeLights"></div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">🐳 Satu Laut Seribu Cerita</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>🐚 Satu Laut Seribu Cerita Gallery 🐚</h1>
+            <p>Explore the Satu Laut Seribu Cerita</p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-image"><img src="terumbu.png" alt="Terumbu Karang"></div>
+                <div class="gallery-content">
+                    <div class="gallery-title">Terumbu Karang</div>
+                    <div class="gallery-description">Ekosistem laut yang terbentuk dari koloni karang...</div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-image"><img src="mg.jpg" alt="Mangrove"></div>
+                <div class="gallery-content">
+                    <div class="gallery-title">Mangrove</div>
+                    <div class="gallery-description">Hutan yang tumbuh di daerah pesisir berlumpur...</div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-image"><img src="pl.jpeg" alt="Padang Lamun"></div>
+                <div class="gallery-content">
+                    <div class="gallery-title">Padang Lamun</div>
+                    <div class="gallery-description">Tumbuhan berbunga yang hidup di dasar laut dangkal...</div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-image"><img src="hl.jpg" alt="Hewan Laut"></div>
+                <div class="gallery-content">
+                    <div class="gallery-title">Hewan Laut</div>
+                    <div class="gallery-description">Berbagai jenis makhluk hidup yang hidup di laut...</div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-image"><img src="al.jpg" alt="Anemon Laut"></div>
+                <div class="gallery-content">
+                    <div class="gallery-title">Anemon Laut</div>
+                    <div class="gallery-description">Anemon laut adalah hewan laut berbentuk seperti bunga...</div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="gallery-image"><img src="plu.jpg" alt="Plankton Laut"></div>
+                <div class="gallery-content">
+                    <div class="gallery-title">Plankton Laut</div>
+                    <div class="gallery-description">Plankton laut adalah organisme kecil yang melayang...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clock-widget">
+            <h3>🕐 Satu Laut Seribu Cerita</h3>
+            <div class="clock-display-gallery" id="clockDisplay">00:00:00</div>
+            <div class="date-display-gallery" id="dateDisplay">Loading...</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            © 2025 Satu Laut Seribu Cerita. Dibuat oleh <strong>Yasmine Salsabila</strong> - NIM: <strong>251011700003</strong> - Kelas: <strong>01SIFP001</strong>
+        </p>
+        <p class="footer-subtitle">
+            Tugas UAS Pemrograman Web 1 | Universitas Pamulang
+        </p>
+    </footer>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal()">×</div>
+            <div class="modal-icon" id="modalIcon">🎨</div>
+            <div class="modal-title" id="modalTitle">Title</div>
+            <div class="modal-description" id="modalDescription">Description</div>
+        </div>
+    </div>
+
+    <script>
+        // Create Police Lights
+        function createPoliceLights() {
+            const container = document.getElementById('policeLights');
+            for (let i = 0; i < 10; i++) {
+                const light = document.createElement('div');
+                light.className = 'light ' + (i % 2 === 0 ? 'blue' : 'red');
+                light.style.left = Math.random() * 100 + '%';
+                light.style.top = Math.random() * 100 + '%';
+                container.appendChild(light);
+            }
+        }
+
+        // Modal
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const modal = document.getElementById('modal');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const title = item.querySelector('.gallery-title').textContent;
+                const description = item.querySelector('.gallery-description').textContent;
+
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalDescription').textContent = description;
+
+                modal.classList.add('active');
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Update Clock
+        function updateClock() {
+            const now = new Date();
+
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            document.getElementById('clockDisplay').textContent = `${hours}:${minutes}:${seconds}`;
+
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+            document.getElementById('dateDisplay').textContent =
+                `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+        }
+
+        // Init
+        createPoliceLights();
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+
+</body>
+</html>
